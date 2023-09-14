@@ -13,6 +13,8 @@ export default async function Home() {
     articles = data; // データが配列の場合、articlesに代入
   } else {
     console.error("取得したデータが配列ではありません。");
+    // 代替のデフォルトデータを設定
+    articles = []; // または他の適切な代替データを設定
   }
 
   return (
