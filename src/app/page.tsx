@@ -3,12 +3,17 @@ import { getAllArticles } from "../blogAPI";
 import { supabase } from "@/utils/supabaseClient";
 
 export default async function Home() {
-  // const articles = await getAllArticles();
-  // console.log(supabase);
+  let articles = []; // デフォルトの空の配列を設定
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const res = await fetch(`${API_URL}/api/blog`, { cache: "no-store" });
-  const articles = await res.json();
+  const data = await res.json();
+
+  if (Array.isArray(data)) {
+    articles = data; // データが配列の場合、articlesに代入
+  } else {
+    console.error("取得したデータが配列ではありません。");
+  }
 
   return (
     <div className="md:flex justify-between">
